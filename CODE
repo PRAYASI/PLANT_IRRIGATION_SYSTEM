@@ -1,0 +1,39 @@
+# This code is written and run-on Arduino IDE, a very easy to use and compile environment for the execution of the code.
+int resval = 0;   // holds the value
+int respin = A0; // sensor pin used for input
+int MOTOR = 7;  //output pin for motor
+int LED_GREEN_PIN = 8;  //output pin for Green LED
+int LED_RED_PIN = 9;  //output pin for Red LED
+
+void setup() 
+{
+  // start the serial console
+  Serial.begin(9600);
+  pinMode(LED_RED_PIN, OUTPUT);
+  pinMode(LED_GREEN_PIN, OUTPUT);
+  pinMode(MOTOR, OUTPUT);
+}
+
+void loop() 
+{
+  resval = analogRead(respin); // Read data from analog pin and store it to resval variable
+  Serial.println(resval); //print on serial monitor
+  delay(1000);
+  if (resval < 500) 
+  {
+//not enough moisture, turn on Red LED and Motor is ON
+    digitalWrite(LED_RED_PIN, HIGH);  
+    digitalWrite(LED_GREEN_PIN, LOW);
+    digitalWrite(MOTOR, HIGH);
+  } 
+  else 
+  {
+//enough moisture, turn on Green LED and Motor is OFF
+    digitalWrite(LED_RED_PIN, LOW);
+    digitalWrite(LED_GREEN_PIN, HIGH);
+    digitalWrite(MOTOR, LOW);
+  }
+}
+
+
+
